@@ -26,24 +26,5 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
     - name: Bundle install
       run: 'bundle install'
-    - name: Run HTTP conformance tests
-      uses: GoogleCloudPlatform/functions-framework-conformance/action@v1.4.1
-      with:
-        functionType: 'http'
-        useBuildpacks: false
-        cmd: "'bundle exec functions-framework-ruby --source test/conformance/app.rb --target http_func --signature-type http'"
-    - name: Run CloudEvent conformance tests
-      uses: GoogleCloudPlatform/functions-framework-conformance/action@v1.4.1
-      with:
-        functionType: 'cloudevent'
-        useBuildpacks: false
-        validateMapping: true
-        cmd: "'bundle exec functions-framework-ruby --source test/conformance/app.rb --target cloudevent_func --signature-type cloudevent'"
-    - name: Run HTTP concurrency conformance test
-      uses: GoogleCloudPlatform/functions-framework-conformance/action@4f37e559575e4770aad085cde8ac0b65b85e9036
-      with:
-        version: '4f37e559575e4770aad085cde8ac0b65b85e9036'
-        functionType: 'http'
-        useBuildpacks: false
-        validateConcurrency: true
-        cmd: "'bundle exec functions-framework-ruby --source test/conformance/app.rb --target concurrenct_func"
+    - name: Run it
+      run: ./client -buildpacks=false -builder-source=test/conformance -type=http -validate-concurrency=true -cmd='bundle exec functions-framework-ruby --source test/conformance/app.rb --target concurrent_func --signature-type http'
