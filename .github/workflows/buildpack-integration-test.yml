@@ -17,3 +17,7 @@ jobs:
       builder-runtime: 'ruby30'
       # Latest uploaded tag from us.gcr.io/fn-img/buildpacks/ruby30/builder
       builder-tag: 'ruby30_20220620_3_0_4_RC00'
+
+# ~/client -buildpacks=true -builder-source=test/conformance -builder-target=concurrent_func -builder-tag=ruby30_20220620_3_0_4_RC00 -builder-runtime=ruby30 -type=http -validate-concurrency=true
+
+# ~/client -buildpacks=false -builder-source=test/conformance -type=http -validate-concurrency=true -cmd='bundle exec functions-framework-ruby --source test/conformance/app.rb --target concurrent_func --signature-type http'
